@@ -73,7 +73,7 @@ def login():
 def profile():
     if not g.user:
         return redirect(url_for('login'))
-
+    print("home",end="\n"*2)
     return render_template('profile.html')
 
 
