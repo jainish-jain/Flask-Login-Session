@@ -45,7 +45,7 @@ def logout():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
+    if request.method == 'POST' and g.user==None:
         session.pop('user_id', None)
 
         username = request.form['username']
@@ -63,8 +63,11 @@ def login():
         flash(username)
         print("flash")
         return redirect(url_for('login'))
-
-    return render_template("login.html")
+    elif request.method=='GET':
+        if g.user:
+            return redirect('profile')
+        else:
+            return render_template("login.html")
 
 @app.route('/profile')
 def profile():
